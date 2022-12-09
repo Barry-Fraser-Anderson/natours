@@ -3,7 +3,24 @@ const Tour = require('../models/tourModel');
 // Handlers
 exports.getAllTours = async (req, res) => {
   try {
-    const tours = await Tour.find();
+    // 1a. Filtering. Copy the query, excluding non-queryable fields
+    const { page, sort, limit, fields, ...queryObj } = req.query;
+
+    // 1b. Advanced filtering
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (match) => `$${match}`);
+    let query = Tour.find(JSON.parse(queryStr));
+
+    // 2. Sorting. Default is 'most recently created'.
+    if (req.query.sort) {
+      const sortBy = req.query.sort.split(',').join(' ');
+      query = query.sort(sortBy);
+    } else {
+      query = query.sort('-createdAt');
+    }
+
+    // Execute query
+    const tours = await query;
 
     res.status(200).json({
       status: 'success',
