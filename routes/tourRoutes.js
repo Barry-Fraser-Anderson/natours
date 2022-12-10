@@ -6,7 +6,12 @@ const router = express.Router();
 // prettier-ignore
 router
   .route('/top-5-cheap')
-  .get(tourController.aliasTopTours, tourController.getAllTours)
+  .get(tourController.aliasTopTours, tourController.getAllTours);
+
+// prettier-ignore
+router
+  .route('/tour-stats')
+  .get(tourController.getTourStats);
 
 // prettier-ignore
 router
