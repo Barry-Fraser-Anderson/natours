@@ -1,4 +1,5 @@
 const Tour = require('../models/tourModel');
+const APIFeatures = require('../utils/apiFeatures');
 
 exports.aliasTopTours = async (req, res, next) => {
   req.query.limit = '5';
@@ -10,43 +11,12 @@ exports.aliasTopTours = async (req, res, next) => {
 // Handlers
 exports.getAllTours = async (req, res) => {
   try {
-    // 1a. Filtering. Copy the query, excluding non-queryable fields
-    const { page, sort, limit, fields, ...queryObj } = req.query;
-
-    // 1b. Advanced filtering
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (match) => `$${match}`);
-    let query = Tour.find(JSON.parse(queryStr));
-
-    // 2. Sorting. Default is 'most recently created'.
-    if (req.query.sort) {
-      const sortBy = req.query.sort.split(',').join(' ');
-      query = query.sort(sortBy);
-    } else {
-      query = query.sort('-createdAt');
-    }
-
-    // 3. Field selection
-    if (req.query.fields) {
-      const fields = req.query.fields.split(',').join(' ');
-      query = query.select(fields);
-    } else {
-      query = query.select('-__v');
-    }
-
-    // 4. Pagination
-    const pag = +req.query.page || 1;
-    const lim = +req.query.limit || 100;
-    const skip = (pag - 1) * lim;
-
-    query = query.skip(skip).limit(lim);
-    if (req.query.page) {
-      const numTours = await Tour.countDocuments();
-      if (skip >= numTours) throw new Error('This page does not exist');
-    }
-
-    // Execute query
-    const tours = await query;
+    const features = new APIFeatures(Tour.find(), req.query)
+      .filter()
+      .sort()
+      .select()
+      .paginate();
+    const tours = await features.query;
 
     res.status(200).json({
       status: 'success',
