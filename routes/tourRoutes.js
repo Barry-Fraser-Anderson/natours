@@ -10,6 +10,11 @@ router
 
 // prettier-ignore
 router
+  .route('/monthly-plan/:year')
+  .get(tourController.getMonthlyPlan);
+
+// prettier-ignore
+router
   .route('/tour-stats')
   .get(tourController.getTourStats);
 
