@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const slugify = require('slug');
+const slugify = require('slugify');
 
 tourSchema = new mongoose.Schema(
   {
