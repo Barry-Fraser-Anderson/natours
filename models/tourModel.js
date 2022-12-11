@@ -42,7 +42,16 @@ tourSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'A tour must have a price'],
     },
-    priceDiscount: Number,
+    priceDiscount: {
+      type: Number,
+      validate: {
+        validator: function (val) {
+          //NB 'this' keyward only applies to NEW documents
+          return val < this.price;
+        },
+        message: 'Discount price {{VALUE}} must be below regular price',
+      },
+    },
     summary: {
       type: String,
       required: [true, 'A tour must have a summary'],
