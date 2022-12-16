@@ -35,6 +35,7 @@ userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
 });
 
+// Encrypt password for saving. We won't save 'confirm' password
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
@@ -44,6 +45,7 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+// Confirm that password is correct
 userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
@@ -51,6 +53,7 @@ userSchema.methods.correctPassword = async function (
   return await bcrypt(candidatePassword, userPassword);
 };
 
+// Ensure that password has not been changed after JWT was created
 userSchema.methods.changeUserPassword = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(

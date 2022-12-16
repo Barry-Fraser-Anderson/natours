@@ -1,5 +1,6 @@
 const AppError = require('../utils/appError');
 
+// Error handlers
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: {err.value}.`;
   return new AppError(message, 400);
@@ -21,6 +22,7 @@ const handleJWTError = () => new AppError('Invalid token. Please log in', 401);
 const handleJWTExpiredError = () =>
   new AppError('Token has expired. Please log in', 401);
 
+// Development error
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -30,6 +32,7 @@ const sendErrorDev = (err, res) => {
   });
 };
 
+// Production error
 const sendErrorProd = (err, res) => {
   // Operation, trusted error: send message to client
   if (err.isOperational) {
@@ -48,6 +51,7 @@ const sendErrorProd = (err, res) => {
   }
 };
 
+// Error middleware
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';

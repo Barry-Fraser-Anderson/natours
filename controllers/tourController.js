@@ -3,6 +3,7 @@ const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
+// Get 'top5' tours
 exports.aliasTopTours = async (req, res, next) => {
   req.query.limit = '5';
   req.query.sort = '-ratingsAverage,price';
@@ -10,7 +11,7 @@ exports.aliasTopTours = async (req, res, next) => {
   next();
 };
 
-// Handlers
+// Get all tourss
 exports.getAllTours = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(Tour.find(), req.query)
     .filter()
@@ -28,6 +29,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
   });
 });
 
+// Get specified tour
 exports.getTour = catchAsync(async (req, res, next) => {
   const tour = await Tour.findById(req.params.id);
 
@@ -43,6 +45,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
   });
 });
 
+// Create a tour
 exports.createTour = catchAsync(async (req, res, next) => {
   const newTour = await Tour.create(req.body);
 
@@ -54,6 +57,7 @@ exports.createTour = catchAsync(async (req, res, next) => {
   });
 });
 
+// Modify a tour
 exports.updateTour = catchAsync(async (req, res, next) => {
   const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -72,6 +76,7 @@ exports.updateTour = catchAsync(async (req, res, next) => {
   });
 });
 
+// Delete a tour
 exports.deleteTour = catchAsync(async (req, res, next) => {
   const tour = await Tour.findByIdAndDelete(req.params.id);
 
@@ -85,6 +90,7 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
   });
 });
 
+// Get tour statistics
 exports.getTourStats = catchAsync(async (req, res, next) => {
   const stats = await Tour.aggregate([
     {
@@ -116,6 +122,7 @@ exports.getTourStats = catchAsync(async (req, res, next) => {
   });
 });
 
+// Get monthly plan
 exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
   const year = req.params.year;
   const plan = await Tour.aggregate([

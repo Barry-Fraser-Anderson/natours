@@ -10,6 +10,7 @@ const signToken = (id) => {
   });
 };
 
+// Register a new user
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
@@ -29,11 +30,12 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 });
 
+// Login
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return next(new AppError('Please provide emailand password', 400));
+    return next(new AppError('Please provide email and password', 400));
   }
 
   const user = await User.findOne({ email }).select('+password');
@@ -50,6 +52,7 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 });
 
+// Check request
 exports.protect = catchAsync(async (req, res, next) => {
   // Get and validate token
   let token;
