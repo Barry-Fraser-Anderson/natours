@@ -20,7 +20,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 exports.createUser = (req, res) => {
   res.status(500).json({
     status: 'error',
-    message: 'Not yet implemented',
+    message: 'createUser: Not yet implemented',
   });
 };
 
@@ -28,7 +28,7 @@ exports.createUser = (req, res) => {
 exports.getUser = (req, res) => {
   res.status(500).json({
     status: 'error',
-    message: 'Not yet implemented',
+    message: 'getUser: Not yet implemented',
   });
 };
 
@@ -36,7 +36,7 @@ exports.getUser = (req, res) => {
 exports.updateUser = (req, res) => {
   res.status(500).json({
     status: 'error',
-    message: 'Not yet implemented',
+    message: 'updateUser: Not yet implemented',
   });
 };
 
@@ -44,6 +44,6 @@ exports.updateUser = (req, res) => {
 exports.deleteUser = (req, res) => {
   res.status(500).json({
     status: 'error',
-    message: 'Not yet implemented',
+    message: 'deleteUser: Not yet implemented',
   });
 };
