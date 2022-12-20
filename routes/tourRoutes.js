@@ -22,7 +22,7 @@ router
 // prettier-ignore
 router
   .route('/')
-  .get(authController.protect, tourController.getAllTours)
+  .get(tourController.getAllTours)
   .post(tourController.createTour);
 
 // prettier-ignore
