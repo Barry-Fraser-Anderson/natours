@@ -41,6 +41,11 @@ userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
 });
 
 // Encrypt password for saving. We won't save 'confirm' password
@@ -50,6 +55,14 @@ userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, 12);
 
   this.passwordConfirm = undefined;
+  next();
+});
+
+// Hide inactive users
+userSchema.pre(/^find/, function (next) {
+  // 'this' is the current query
+  //this.find({ active: true });
+  this.find({ active: { $ne: false } }); // handle missing 'active' value
   next();
 });
 
