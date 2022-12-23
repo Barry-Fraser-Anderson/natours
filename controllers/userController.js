@@ -63,13 +63,9 @@ exports.getUser = (req, res) => {
   });
 };
 
-// Modify a user
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'updateUser: Not yet implemented',
-  });
-};
+// Do NOT update passwords with this!
+exports.updateUser = factory.updateOne(User);
+exports.deleteUser = factory.deleteOne(User);
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });
@@ -79,6 +75,3 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     data: null,
   });
 });
-
-// Delete a user
-exports.deleteUser = factory.deleteOne(User);
