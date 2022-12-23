@@ -112,12 +112,20 @@ tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
 
+// Virtual populate
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour',
+  localField: '_id',
+});
+
 // QUERY MIDDLEWARE
 tourSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'guides',
     select: '-__v -passwordChangedAt',
   });
+  next();
 });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
