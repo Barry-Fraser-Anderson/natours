@@ -58,20 +58,20 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// Hide inactive users
-userSchema.pre(/^find/, function (next) {
-  // 'this' is the current query
-  //this.find({ active: true });
-  this.find({ active: { $ne: false } }); // handle missing 'active' value
-  next();
-});
-
 // Update password change date
 userSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
 
   // 1 sec bodge to ensure token is created after password change
   this.passwordChangedAt = Date.now() - 1000;
+  next();
+});
+
+// Hide inactive users
+userSchema.pre(/^find/, function (next) {
+  // 'this' is the current query
+  //this.find({ active: true });
+  this.find({ active: { $ne: false } }); // handle missing 'active' value
   next();
 });
 
