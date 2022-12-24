@@ -15,24 +15,30 @@ router
 // prettier-ignore
 router
   .route('/monthly-plan/:year')
-  .get(tourController.getMonthlyPlan);
+  .get(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    tourController.getMonthlyPlan);
 
-// prettier-ignore
-router
-  .route('/tour-stats')
-  .get(tourController.getTourStats);
+router.route('/tour-stats').get(tourController.getTourStats);
 
-// prettier-ignore
 router
   .route('/')
   .get(tourController.getAllTours)
-  .post(tourController.createTour);
+  .post(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    tourController.createTour
+  );
 
 // prettier-ignore
 router
   .route('/:id')
   .get(tourController.getTour)
-  .patch(tourController.updateTour)
+  .patch(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    tourController.updateTour)
   .delete(
     authController.protect,
     authController.restrictTo('admin', 'lead-guide'),
