@@ -20,7 +20,9 @@ exports.getMe = (req, res, next) => {
 exports.updateMe = catchAsync(async (req, res, next) => {
   // Create error if users POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
-    return next(new AppError('Password change not allowed', 400));
+    return next(
+      new AppError('Password change not allowed via this route', 400)
+    );
   }
 
   // Update user document
