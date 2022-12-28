@@ -540,6 +540,7 @@ const mapBox = document.querySelector("#map");
 const loginForm = document.querySelector(".form--login");
 const logoutBtn = document.querySelector(".nav__el--logout");
 const userDataForm = document.querySelector(".form-user-data");
+const userPasswordForm = document.querySelector(".form-user-password");
 // ----------------------------------------------
 // Get locations from HTML
 // ----------------------------------------------
@@ -558,7 +559,27 @@ if (userDataForm) userDataForm.addEventListener("submit", (e)=>{
     e.preventDefault();
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
-    (0, _updateSettings.updateData)(name, email);
+    (0, _updateSettings.updateSettings)({
+        name,
+        email
+    }, "data");
+});
+if (userPasswordForm) userPasswordForm.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const passwordCurrent = document.getElementById("password-current").value;
+    const password = document.getElementById("password").value;
+    const passwordConfirm = document.getElementById("password-confirm").value;
+    const passwordSaveBtn = document.querySelector(".btn--save-password");
+    passwordSaveBtn.textContent = "Updating...";
+    await (0, _updateSettings.updateSettings)({
+        passwordCurrent,
+        password,
+        passwordConfirm
+    }, "password");
+    passwordSaveBtn.textContent = "Save Password";
+    passwordCurent.value = "";
+    password.value = "";
+    passwordConfirm.value = "";
 });
 
 },{"./login":"7yHem","./leaflet":"xvuTT","./updateSettings":"l3cGY"}],"7yHem":[function(require,module,exports) {
@@ -4728,21 +4749,19 @@ const displayMap = (locations)=>{
 // eslint-disable
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "updateData", ()=>updateData);
+parcelHelpers.export(exports, "updateSettings", ()=>updateSettings);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _alerts = require("./alerts");
-const updateData = async (name, email)=>{
+const updateSettings = async (data, type)=>{
     try {
+        const url = type === "password" ? "http://localhost:3000/api/v1/users/updateMyPassword" : "http://localhost:3000/api/v1/users/updateMe";
         const res = await (0, _axiosDefault.default)({
             method: "PATCH",
-            url: "http://localhost:3000/api/v1/users/updateMe",
-            data: {
-                name,
-                email
-            }
+            url,
+            data
         });
-        if (res.data.status === "success") (0, _alerts.showAlert)("success", "Data updated successfully");
+        if (res.data.status === "success") (0, _alerts.showAlert)("success", `${type.toUpperCase()} updated successfully`);
     } catch (error) {
         (0, _alerts.showAlert)("error", error.response.data.message);
     }
