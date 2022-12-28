@@ -535,9 +535,11 @@ function hmrAcceptRun(bundle, id) {
 // eslint-disable
 var _leaflet = require("./leaflet");
 var _login = require("./login");
+var _updateSettings = require("./updateSettings");
 const mapBox = document.querySelector("#map");
-const loginForm = document.querySelector(".form");
+const loginForm = document.querySelector(".form--login");
 const logoutBtn = document.querySelector(".nav__el--logout");
+const userDataForm = document.querySelector(".form-user-data");
 // ----------------------------------------------
 // Get locations from HTML
 // ----------------------------------------------
@@ -552,8 +554,14 @@ if (loginForm) loginForm.addEventListener("submit", (e)=>{
     (0, _login.login)(email, password);
 });
 if (logoutBtn) logoutBtn.addEventListener("click", (0, _login.logout));
+if (userDataForm) userDataForm.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    (0, _updateSettings.updateData)(name, email);
+});
 
-},{"./login":"7yHem","./leaflet":"xvuTT"}],"7yHem":[function(require,module,exports) {
+},{"./login":"7yHem","./leaflet":"xvuTT","./updateSettings":"l3cGY"}],"7yHem":[function(require,module,exports) {
 // eslint-disable
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -572,7 +580,6 @@ const login = async (email, password)=>{
                 password
             }
         });
-        console.log(res);
         if (res.data.status === "success") {
             (0, _alerts.showAlert)("success", "Logged in successfully");
             window.setTimeout(()=>{
@@ -4717,6 +4724,30 @@ const displayMap = (locations)=>{
     map.scrollWheelZoom.disable();
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["jyRZ6","f2QDv"], "f2QDv", "parcelRequire11c7")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l3cGY":[function(require,module,exports) {
+// eslint-disable
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "updateData", ()=>updateData);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _alerts = require("./alerts");
+const updateData = async (name, email)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "PATCH",
+            url: "http://localhost:3000/api/v1/users/updateMe",
+            data: {
+                name,
+                email
+            }
+        });
+        if (res.data.status === "success") (0, _alerts.showAlert)("success", "Data updated successfully");
+    } catch (error) {
+        (0, _alerts.showAlert)("error", error.response.data.message);
+    }
+};
+
+},{"axios":"jo6P5","./alerts":"6Mcnf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["jyRZ6","f2QDv"], "f2QDv", "parcelRequire11c7")
 
 //# sourceMappingURL=index.js.map

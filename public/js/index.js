@@ -1,10 +1,12 @@
 // eslint-disable
 import { displayMap } from './leaflet';
 import { login, logout } from './login';
+import { updateData } from './updateSettings';
 
 const mapBox = document.querySelector('#map');
-const loginForm = document.querySelector('.form');
+const loginForm = document.querySelector('.form--login');
 const logoutBtn = document.querySelector('.nav__el--logout');
+const userDataForm = document.querySelector('.form-user-data');
 
 // ----------------------------------------------
 // Get locations from HTML
@@ -23,3 +25,11 @@ if (loginForm)
   });
 
 if (logoutBtn) logoutBtn.addEventListener('click', logout);
+
+if (userDataForm)
+  userDataForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    updateData(name, email);
+  });
