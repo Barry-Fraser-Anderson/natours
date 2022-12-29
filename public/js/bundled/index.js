@@ -533,6 +533,7 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"f2QDv":[function(require,module,exports) {
 // eslint-disable
+var _axios = require("axios");
 var _leaflet = require("./leaflet");
 var _login = require("./login");
 var _updateSettings = require("./updateSettings");
@@ -557,12 +558,11 @@ if (loginForm) loginForm.addEventListener("submit", (e)=>{
 if (logoutBtn) logoutBtn.addEventListener("click", (0, _login.logout));
 if (userDataForm) userDataForm.addEventListener("submit", (e)=>{
     e.preventDefault();
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    (0, _updateSettings.updateSettings)({
-        name,
-        email
-    }, "data");
+    const form = new FormData();
+    form.append("name", document.getElementById("name").value);
+    form.append("email", document.getElementById("email").value);
+    form.append("photo", document.getElementById("photo").files[0]);
+    (0, _updateSettings.updateSettings)(form, "data");
 });
 if (userPasswordForm) userPasswordForm.addEventListener("submit", async (e)=>{
     e.preventDefault();
@@ -582,7 +582,7 @@ if (userPasswordForm) userPasswordForm.addEventListener("submit", async (e)=>{
     passwordConfirm.value = "";
 });
 
-},{"./login":"7yHem","./leaflet":"xvuTT","./updateSettings":"l3cGY"}],"7yHem":[function(require,module,exports) {
+},{"./login":"7yHem","./leaflet":"xvuTT","axios":"jo6P5","./updateSettings":"l3cGY"}],"7yHem":[function(require,module,exports) {
 // eslint-disable
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
