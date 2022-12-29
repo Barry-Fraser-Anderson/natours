@@ -1,4 +1,4 @@
 node_modules/
 .parcel-cache
 
-public/img/*.jpeg
+public/img/users/*.jpeg
