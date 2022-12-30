@@ -54,7 +54,7 @@ if (userPasswordForm)
       'password'
     );
     passwordSaveBtn.textContent = 'Save Password';
-    passwordCurent.value = '';
+    passwordCurrent.value = '';
     password.value = '';
     passwordConfirm.value = '';
   });
