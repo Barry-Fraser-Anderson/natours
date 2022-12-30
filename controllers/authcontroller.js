@@ -67,15 +67,16 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
+// Logout
 exports.logout = (req, res, next) => {
-  res.cookie('jwt', 'logged out', {
-    expires: new Date(Date.now() + 10 * 1000),
+  res.cookie('jwt', 'noToken', {
+    expires: new Date(),
     httpOnly: true,
   });
   res.status(200).json({ status: 'success' });
 };
 
-// Check request
+// Protect routes
 exports.protect = catchAsync(async (req, res, next) => {
   // Get and validate token
   let token;
@@ -85,7 +86,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     token = req.cookies.jwt;
   }
 
-  if (!token) {
+  if (!token || token === 'noToken') {
     return next(new AppError('You are not logged in!', 401));
   }
 
