@@ -1,5 +1,5 @@
 # natours
-node.js, Express, and mongoDB training
+node.js, Express, and MongoDB training
 
 From the Udemy course: Node.js, MongoDB and More
 
