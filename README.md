@@ -16,8 +16,12 @@ Outline of topics covered:
 - Server-side rendering with Pug templates
 - Payments, email, file uploads
 
-<div style="display: flex; align-items: flex-start;">
-<img src="https://user-images.githubusercontent.com/112425916/210138223-11641ab4-a2a3-42c5-b327-2caf8ccf1c09.png" width="300" alt="Products page">
-<img src="https://user-images.githubusercontent.com/112425916/210138230-49ec3dd1-e215-49ae-b413-8734eae3efc9.png" alt="Sports Lover Tour" width="300">
-<img src="https://user-images.githubusercontent.com/112425916/210138390-fc345ba7-239e-4c80-be6f-a915a0530fef.png" alt="Account page" width="300">
+
+<div>
+<img src="https://user-images.githubusercontent.com/112425916/224552116-4051a4fc-ad8c-44d3-91b5-9ebb62059b8b.png" width="240"/>
+<img src="https://user-images.githubusercontent.com/112425916/224552147-85475b28-b75f-408b-85ab-3adfeeadaa2f.png" width="240"/>
+</div>
+<div>
+<img src="https://user-images.githubusercontent.com/112425916/224552136-387ae3d7-7d37-49ec-92bd-7e0e4dd0e239.png" width="240"/>
+<img src="https://user-images.githubusercontent.com/112425916/224552141-ee9f1840-e6d0-41a6-8234-eb2271a5b661.png" width="240"/>
 </div>
