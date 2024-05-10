@@ -5,7 +5,10 @@ From the Udemy course: Node.js, MongoDB and More
 
 URL: https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/
 
-Outline of topics covered:
+# Synopsis
+This project consists of a RESTful API and a 'Guided Tours' application 
+
+# Topics covered:
 - Asynchronous Javascript
 - Node.js and NPM
 - Rest API
