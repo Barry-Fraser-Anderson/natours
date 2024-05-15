@@ -10,7 +10,7 @@ A webshop which sells guided tours.
 
 It comprises a RESTful API and a server-side rendered website.
 
-## Topics covered:
+## Topics Covered
 - Asynchronous Javascript
 - Node.js and NPM
 - Rest API
