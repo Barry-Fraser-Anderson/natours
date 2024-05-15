@@ -5,12 +5,12 @@ From the Udemy course: Node.js, MongoDB and More
 
 URL: https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/
 
-# Synopsis
-This project is webshop which sells guided tours.
+## Synopsis
+A webshop which sells guided tours.
 
 It comprises a RESTful API and a server-side rendered website.
 
-# Topics covered:
+## Topics covered:
 - Asynchronous Javascript
 - Node.js and NPM
 - Rest API
@@ -21,7 +21,7 @@ It comprises a RESTful API and a server-side rendered website.
 - Server-side rendering with Pug templates
 - Payments, email, file uploads
 
-# Screenshots
+## Screenshots
 <div>
 <img src="https://user-images.githubusercontent.com/112425916/224552116-4051a4fc-ad8c-44d3-91b5-9ebb62059b8b.png" width="240"/>
 <img src="https://user-images.githubusercontent.com/112425916/224552147-85475b28-b75f-408b-85ab-3adfeeadaa2f.png" width="240"/>
